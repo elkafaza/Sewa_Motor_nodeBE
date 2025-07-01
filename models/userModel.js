@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
 
+
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -39,6 +40,16 @@ const userSchema = new Schema({
     enum: ['admin', 'user'],
     default: 'user',
   },
+  verified: {
+  type: Boolean,
+  default: false,
+},
+emailToken: String,
+emailTokenExpires: Date,
+resetToken: String,
+resetTokenExpires: Date,
+
+
 });
 
 
