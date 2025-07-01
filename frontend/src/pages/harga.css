@@ -1,0 +1,76 @@
+.harga-page {
+  padding: 60px 20px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+}
+
+.harga-page h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.motor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.motor-card {
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.motor-card:hover {
+  transform: translateY(-5px);
+}
+
+.motor-card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.motor-card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.motor-card p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  margin-top: 10px;
+}
+
+.available {
+  background-color: #28a745;
+}
+
+.unavailable {
+  background-color: #dc3545;
+}
+.booking-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.booking-button:hover {
+  background-color: #218838;
+}

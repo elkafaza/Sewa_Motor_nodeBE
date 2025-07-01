@@ -1,0 +1,60 @@
+.minimal-navbar {
+ position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  background: rgba(0, 0, 0, 0.6); /* agar tetap kontras saat scroll */
+  backdrop-filter: blur(8px);     /* efek transparan modern */
+  font-size: 16px;/* opsional, biar konsisten fix */
+  height: auto;
+}
+.logo-img {
+  height: 60px; /* Kecilkan logo agar tidak dorong navbar */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  padding-left: 20px; /* tambahkan jarak dari kiri */
+}
+
+.brand {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.language-selector {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+}
+.brand-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #ff6600, #000000);
+}
+.spacer {
+  height: 64px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+

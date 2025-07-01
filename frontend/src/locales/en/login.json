@@ -1,0 +1,21 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "name": "Name",
+  "phone": "Phone Number",
+  "email": "Email",
+  "password": "Password",
+  "haveAccount": "Already have an account?",
+  "noAccount": "Don't have an account?",
+  "submitLogin": "Sign In",
+  "submitRegister": "Sign Up",
+  "forgot_password": "Forgot Password?",
+  "login_success": "Login successful!",
+  "login_failed": "Login failed. Please try again.",
+  "register_success": "Registration successful!",
+"register_failed": "Registration failed. Please try again.",
+"account": "Account",
+    "settings": "Settings",
+    "logout": "Logout"
+
+}
