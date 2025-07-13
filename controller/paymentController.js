@@ -4,7 +4,7 @@ import asyncHandler from '../middleware/asyncHandler.js';
 // ➕ BUAT TRANSAKSI PEMBAYARAN
 export const createPayment = asyncHandler(async (req, res) => {
   const {
-    userId,
+    
     motorId,
     startDate,
     endDate,
@@ -15,7 +15,7 @@ export const createPayment = asyncHandler(async (req, res) => {
   } = req.body;
 
   const payment = await Payment.create({
-    userId,
+    userId: req.user._id,
     motorId,
     startDate,
     endDate,
@@ -25,14 +25,40 @@ export const createPayment = asyncHandler(async (req, res) => {
     status
   });
 
-  res.status(201).json(payment); // hanya return payment (untuk ambil _id di frontend)
+  res.status(201).json(payment);
 });
 
 // 📥 LIHAT SEMUA PEMBAYARAN
 export const getAllPayments = asyncHandler(async (req, res) => {
-  const payments = await Payment.find().sort({ createdAt: -1 });
+  const payments = await Payment.find()
+    .populate('userId', 'name email')       // Hanya ambil name dan email
+    .populate('motorId', 'motorId brand');  // Hanya ambil plat nomor dan brand
+
+  res.json({ data: payments });
+});
+
+// 📥 LIHAT PEMBAYARAN USER SAJA
+export const getPaymentsByUser = asyncHandler(async (req, res) => {
+  const payments = await Payment.find({ userId: req.user._id })
+    .populate('motorId')
+    .sort({ createdAt: -1 });
+
   res.status(200).json(payments);
 });
+
+// 🔍 GET SATU PEMBAYARAN BERDASARKAN ID
+export const getPaymentById = asyncHandler(async (req, res) => {
+  const payment = await Payment.findById(req.params.id)
+    .populate('userId', 'name')
+    .populate('motorId', 'motorId brand');
+
+  if (!payment) {
+    return res.status(404).json({ message: 'Transaksi tidak ditemukan' });
+  }
+
+  res.status(200).json(payment);
+});
+
 
 // ✏️ UPDATE STATUS PEMBAYARAN
 export const updatePaymentStatus = asyncHandler(async (req, res) => {
@@ -56,8 +82,6 @@ export const updatePaymentStatus = asyncHandler(async (req, res) => {
 export const uploadBuktiTransfer = asyncHandler(async (req, res) => {
   const { paymentId } = req.body;
 
-   console.log("📩 ID dari upload bukti:", paymentId); 
-    console.log("📷 File yang diupload:", req.file?.filename);
   const payment = await Payment.findById(paymentId);
   if (!payment) {
     return res.status(404).json({ message: 'Transaksi tidak ditemukan' });

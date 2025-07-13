@@ -1,10 +1,13 @@
+// routes/paymentRouter.js
 import express from 'express';
 import multer from 'multer';
 import {
   createPayment,
   getAllPayments,
   updatePaymentStatus,
-  uploadBuktiTransfer
+  uploadBuktiTransfer,
+  getPaymentsByUser,
+  getPaymentById
 } from '../controller/paymentController.js';
 
 import { authMiddleware, isAdmin } from '../middleware/authMiddleware.js';
@@ -24,8 +27,14 @@ const upload = multer({ storage });
 // ✅ POST transaksi sewa motor
 router.post('/', authMiddleware, createPayment);
 
-// ✅ GET semua transaksi
-router.get('/', authMiddleware, getAllPayments);
+// ✅ GET semua transaksi milik user login — HARUS DITARUH SEBELUM `/:id`
+router.get('/user', authMiddleware, getPaymentsByUser);
+
+// ✅ GET semua transaksi (admin only)
+router.get('/', authMiddleware, isAdmin, getAllPayments);
+
+// ✅ GET transaksi berdasarkan ID
+router.get('/:id', authMiddleware, getPaymentById);
 
 // ✅ PATCH ubah status transaksi (admin only)
 router.patch('/:id/status', authMiddleware, isAdmin, updatePaymentStatus);

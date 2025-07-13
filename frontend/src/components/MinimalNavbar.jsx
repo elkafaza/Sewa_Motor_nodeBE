@@ -1,13 +1,32 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AuthContext } from '../context/AuthContext';
 import logo from '../assets/logo.png';
+import { FiUser } from 'react-icons/fi';
 import './MinimalNavbar.css';
 
 const MinimalNavbar = ({ changeLanguage }) => {
-  const { t, i18n } = useTranslation('login');
-  const { user } = useContext(AuthContext);
+  const { t, i18n } = useTranslation('home');
+  const { user, logout } = useContext(AuthContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Reload user from localStorage if necessary
+  useEffect(() => {
+      const handleClickOutside = (e) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+          setDropdownOpen(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+    const handleLogout = () => {
+  logout();
+  navigate('/');
+};
 
   return (
     <nav className="minimal-navbar">
@@ -19,8 +38,27 @@ const MinimalNavbar = ({ changeLanguage }) => {
 
       <div className="nav-right">
         {user ? (
-          <>
-          </>
+          <div className="user-dropdown">
+            <button onClick={() => setDropdownOpen(!dropdownOpen)} className="user-button">
+              <FiUser style={{ marginRight: '5px' }} />
+              {user?.name || 'User'} ▼
+            </button>
+             {dropdownOpen && (
+                          <div className="dropdown-menu">
+                            {user.role === 'admin' ? (
+                              <>
+                                <Link to="/admin/motors">{t('uploadMotor')}</Link>
+                                <Link to="/admin/payments">{t('verifyPayment')}</Link>
+                              </>
+                              ) : (
+                      <>
+                        <Link to="/payment-history">Status Pembayaran</Link>
+                      </>
+                         )}
+                <button onClick={handleLogout}>{t('logout')}</button>
+              </div>
+            )}
+          </div>
         ) : (
           <>
             <Link to="/login">{t('login')}</Link>

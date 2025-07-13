@@ -1,0 +1,64 @@
+.payment-status-container {
+  min-height: 100vh; /* full height */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* center vertically */
+  padding: 30px 20px;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.status-card {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 30px 25px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+}
+
+.status-card p {
+  margin: 10px 0;
+  font-size: 15px;
+}
+
+.status-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.bukti-image {
+  margin-top: 10px;
+  max-width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.back-button {
+  margin-top: 30px;
+  padding: 12px 18px;
+  background-color: orange;
+  border: none;
+  color: #000;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .status-card {
+    padding: 20px;
+  }
+
+  .status-card p {
+    font-size: 14px;
+  }
+
+  .back-button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}

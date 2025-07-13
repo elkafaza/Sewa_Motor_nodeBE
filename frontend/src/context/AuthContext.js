@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       const res = await api.get('/auth/getUser', { withCredentials: true });
-      setUser(res.data);
+      setUser(res.data.data);
     } catch (err) {
       setUser(null);
       localStorage.removeItem('user');

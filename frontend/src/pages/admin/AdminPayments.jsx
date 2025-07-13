@@ -35,7 +35,7 @@ const AdminPayments = () => {
   const handleStatusChange = async (id, newStatus) => {
     try {
       await axios.patch(
-        `/api/payment/${id}/status`,
+        `/api/admin/payments/${id}`,
         { status: newStatus },
         { withCredentials: true }
       );
@@ -74,8 +74,8 @@ const AdminPayments = () => {
             {payments.map((p) => (
               <tr key={p._id}>
                 <td>{p._id}</td>
-                <td>{p.userId}</td>
-                <td>{p.motorId}</td>
+                <td>{p.userId?.name || '-'}</td>
+<td>{p.motorId?.motorId} ({p.motorId?.brand})</td>
                 <td>{new Date(p.startDate).toLocaleDateString('id-ID')}</td>
                 <td>{new Date(p.endDate).toLocaleDateString('id-ID')}</td>
                 <td>{p.duration} hari</td>

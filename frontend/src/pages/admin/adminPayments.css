@@ -6,11 +6,13 @@
 
 .admin-payment-page h2 {
   text-align: center;
+  color:#000000;
   margin-bottom: 30px;
 }
 
 .payment-table {
   width: 100%;
+  color: #000000;
   border-collapse: collapse;
   background: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);

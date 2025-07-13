@@ -6,26 +6,15 @@ import { FiUser } from 'react-icons/fi';
 import logo from '../assets/logo.png';
 
 const Navbar = ({ changeLanguage }) => {
-  const { t } = useTranslation('home');
-  const { user,  logout } = useContext(AuthContext);
+  const { t, i18n } = useTranslation('home');
+  const { user, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const currentUser = user || storedUser;
 
   const handleScroll = (e, id) => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   useEffect(() => {
@@ -54,21 +43,25 @@ const Navbar = ({ changeLanguage }) => {
       </div>
 
       <div className="nav-right" ref={dropdownRef}>
-        {currentUser ? (
+        {user ? (
           <div className="user-dropdown">
             <button onClick={() => setDropdownOpen(!dropdownOpen)} className="user-button">
               <FiUser style={{ marginRight: '5px' }} />
-              {currentUser.name} ▼
+              {user?.name || 'User'} ▼
             </button>
             {dropdownOpen && (
               <div className="dropdown-menu">
-                {currentUser.role === 'admin' && (
+                {user.role === 'admin' ? (
                   <>
                     <Link to="/admin/motors">{t('uploadMotor')}</Link>
                     <Link to="/admin/payments">{t('verifyPayment')}</Link>
                   </>
+                ) : (
+                  <>
+                    <Link to="/payment-history">Riwayat Pembayaran</Link>
+                  </>
                 )}
-                <button onClick={handleLogout}>{t('logout')}</button>
+                <button onClick={logout}>{t('logout')}</button>
               </div>
             )}
           </div>
@@ -78,7 +71,7 @@ const Navbar = ({ changeLanguage }) => {
             <Link to="/register">{t('register')}</Link>
           </>
         )}
-        <select onChange={changeLanguage} className="language-select">
+        <select onChange={changeLanguage} className="language-select" value={i18n.language}>
           <option value="id">Bahasa Indonesia</option>
           <option value="en">English</option>
         </select>

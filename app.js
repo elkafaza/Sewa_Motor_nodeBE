@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -14,9 +15,17 @@ dotenv.config();
 
 const app = express();
 
+
+
 // ES Module path fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// CORS Setup
+app.use(cors({
+  origin: 'http://localhost:5173', // ganti dengan domain React-mu
+  credentials: true,               // ⬅️ WAJIB: untuk kirim cookie JWT
+}));
 
 // Middleware
 app.use(express.json());

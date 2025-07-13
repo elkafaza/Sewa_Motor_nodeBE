@@ -1,0 +1,44 @@
+.payment-history-container {
+  max-width: 1000px;
+  margin: 140px auto 2rem auto; /* memberi jarak di bawah navbar */
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  color: #000;
+}
+.spacer {
+  height: 80px; /* Sesuaikan dengan tinggi navbar + margin */
+}
+
+.payment-history-container h2 {
+  text-align: center;
+  color: #ff6600;
+  margin-bottom: 1.5rem;
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.payment-table th,
+.payment-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.payment-table th {
+  background-color: #ff6600;
+  color: white;
+}
+
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clickable-row:hover {
+  background-color: #f0f0f0;
+}

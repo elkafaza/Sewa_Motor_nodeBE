@@ -62,7 +62,7 @@
   background-color: #dc3545;
 }
 .booking-button {
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 8px 16px;
   background-color: #28a745;
   color: white;
@@ -73,4 +73,11 @@
 
 .booking-button:hover {
   background-color: #218838;
+}
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  gap: 10px;
 }

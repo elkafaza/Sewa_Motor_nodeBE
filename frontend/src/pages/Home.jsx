@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoogleReview from '../components/GoogleReview';
 import { useTranslation } from 'react-i18next';
 import './home.css';
+import malangBg from '../assets/malang.jpg';
 
 const Home = () => {
   const [motors, setMotors] = useState([]);
   const { t } = useTranslation('home'); 
+  const navigate = useNavigate();
 
+  const handleBooking = (motor) => {
+    navigate('/payment', { state: { motor } });
+  };
   useEffect(() => {
     const fetchMotors = async () => {
       try {
@@ -24,7 +29,19 @@ const Home = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="home-section" id="beranda">
+      <div
+      className="home-section"
+      id="beranda"
+      style={{
+        backgroundImage: `url(${malangBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
         <div className="hero-text">
           <h1>{t('heroTitle')}</h1>
           <p>{t('heroDescription')}</p>
@@ -52,9 +69,17 @@ const Home = () => {
               <h3>{motor.brand} – {motor.model}</h3>
               <p><strong>{t('plate')}:</strong> {motor.motorId}</p>
               <p><strong>{t('price')}:</strong> Rp {parseInt(motor.harga).toLocaleString()}</p>
-              <span className={`status-badge ${motor.status === 'Tersedia' ? 'available' : 'unavailable'}`}>
-                {motor.status}
-              </span>
+              <div className="action-buttons">
+        <span className={`status-badge ${motor.status === 'Tersedia' ? 'available' : 'unavailable'}`}>
+          {motor.status}
+        </span>
+
+        {motor.status === 'Tersedia' && (
+          <button className="booking-button" onClick={() => handleBooking(motor)}>
+            Pesan Sekarang
+          </button>
+        )}
+      </div>
             </div>
           ))}
         </div>

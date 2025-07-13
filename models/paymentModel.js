@@ -2,44 +2,29 @@ import mongoose from 'mongoose';
 
 const paymentSchema = new mongoose.Schema({
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   motorId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Motor',
     required: true,
   },
-  startDate: {
-    type: Date,
-    required: true,
-  },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  duration: {
-    type: Number,
-    required: true,
-  },
-  total: {
-    type: Number,
-    required: true,
-  },
-  method: {
-    type: String,
-    enum: ['qris', 'transfer', 'cod'],
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: ['Berlangsung', 'Selesai', 'Gagal'], // ✅ Fix here
-    default: 'Berlangsung',
-  },
-  buktiTransfer: {
-    type: String,
-    default: '',
-  },
-}, { timestamps: true });
+  startDate: Date,
+  endDate: Date,
+  duration: Number,
+  total: Number,
+  method: String,
+  status: { 
+    type: String, 
+    enum: ['Pending','Berlangsung','Selesai','Gagal'], 
+    default:'Pending' },
+  buktiTransfer: String,
+}, {
+  timestamps: true,
+});
 
 const Payment = mongoose.model('Payment', paymentSchema);
+
 export default Payment;

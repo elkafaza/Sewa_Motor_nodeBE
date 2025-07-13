@@ -12,25 +12,26 @@ const signToken = (id) => {
     })
 }
 
-const createSendResToken = (user,statusCode, res) => {
-    const token = signToken(user._id)
+const createSendResToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
 
-    const isDev = process.env.NODE_ENV === 'development' ? false : true
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== 'development', // true di production (HTTPS)
+    sameSite: process.env.NODE_ENV !== 'development' ? 'None' : 'Lax',
+    expires: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000),
+  };
 
-    const cookieOptions = {
-        expires: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000),
-        httpOnly: true,
-        secure: isDev,
-        sameSite: 'Strict'
-    }
-    res.cookie('jwt', token, cookieOptions)
+  res.cookie('jwt', token, cookieOptions);
 
-    user.password = undefined
-    res.status(statusCode).json({ 
-        message: 'Login successful', 
-        data : user
-    })
-}
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    message: 'Login successful',
+    data: user,
+  });
+};
+
 
 export const RegisterUser = asyncHandler(async (req, res) => {
     const isOwner = (await User.countDocuments()) === 0

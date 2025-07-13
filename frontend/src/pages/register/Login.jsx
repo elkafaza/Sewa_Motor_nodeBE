@@ -19,7 +19,10 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await api.post('/auth/login', form, { withCredentials: true });
-      setUser(res.data.data);
+
+      const userData = res.data.data;
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
       alert(t('login_success'));
       navigate('/home');
     } catch (err) {

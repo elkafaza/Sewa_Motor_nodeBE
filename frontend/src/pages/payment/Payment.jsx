@@ -60,25 +60,21 @@ const Payment = () => {
 
     try {
       const paymentData = {
-        userId: user.name,
-        motorId: selectedMotor ? `${selectedMotor.motorId} (${selectedMotor.brand})` : '',
+        motorId: selectedMotor ? selectedMotor._id : '',
         startDate: form.startDate,
         endDate: form.endDate,
         duration,
         total,
         method: form.method,
-        status: form.method === 'transfer' ? 'Berlangsung' : 'Berlangsung',
+        status: 'Berlangsung'
       };
 
       const res = await axios.post('/api/payment', paymentData, { withCredentials: true });
-      console.log("✅ Transaksi dibuat:", res.data);
 
       if (form.method === 'transfer' && bukti) {
         const formData = new FormData();
         formData.append('bukti', bukti);
-        formData.append('paymentId', res.data._id); // Pastikan _id dikirim
-
-        console.log("📎 ID dikirim ke upload-bukti:", res.data._id);
+        formData.append('paymentId', res.data._id);
 
         await axios.post('/api/payment/upload-bukti', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -86,12 +82,12 @@ const Payment = () => {
         });
 
         alert('Pembayaran berhasil dan bukti transfer telah diunggah!');
+        navigate('/payment-status', { state: { paymentId: res.data._id } });
       } else {
         alert('Pembayaran berhasil!');
+        navigate('/payment-status', { state: { paymentId: res.data._id } });
       }
 
-      // Optional redirect
-      // navigate('/riwayat');
     } catch (err) {
       console.error('❌ Gagal menyimpan pembayaran:', err.response?.data || err.message);
       alert("Terjadi kesalahan saat memproses transaksi.");
@@ -156,11 +152,25 @@ const Payment = () => {
           </label>
         </div>
 
+        {/* 📌 Tambahan: Info Transfer */}
         {form.method === 'transfer' && (
-          <div className="upload-section">
-            <label>Upload Bukti Transfer:</label>
-            <input type="file" onChange={(e) => setBukti(e.target.files[0])} accept="image/*" required />
-          </div>
+          <>
+            <div className="transfer-info-box">
+              <p><strong>Cara Transfer:</strong></p>
+              <ul>
+                <li>Transfer ke rekening berikut:</li>
+                <li><strong>Bank BCA</strong></li>
+                <li>No. Rekening: <strong>1234567890</strong></li>
+                <li>Atas Nama: <strong>PT Motorent Indonesia</strong></li>
+                <li>Setelah transfer, upload bukti transfer di bawah.</li>
+              </ul>
+            </div>
+
+            <div className="upload-section">
+              <label>Upload Bukti Transfer:</label>
+              <input type="file" onChange={(e) => setBukti(e.target.files[0])} accept="image/*" required />
+            </div>
+          </>
         )}
 
         <button type="submit">Sewa Sekarang</button>

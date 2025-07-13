@@ -10,13 +10,11 @@ import './i18n';
 import Layout from './components/Layout';
 import './register.css';
 import Payment from './pages/payment/Payment';
-import PaymentQris from './pages/payment/PaymentQris';
-import PaymentTransfer from './pages/payment/PaymentTransfer';
-import PaymentCOD from './pages/payment/PaymentCOD';
 import MotorList from './pages/admin/MotorList';
 import Harga from './pages/Harga';
 import AdminPayments from './pages/admin/AdminPayments';
-
+import PaymentStatus from './pages/payment/PaymentStatus';
+import PaymentHistory from './pages/payment/PaymentHistory';
 
 function App() {
   return (
@@ -29,11 +27,8 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
-      
-  <Route path="/payment/qris" element={<PaymentQris />} />
-  <Route path="/payment/transfer" element={<PaymentTransfer />} />
-  <Route path="/payment/cod" element={<PaymentCOD />} />
+  <Route path="/payment-status" element={<PaymentStatus />} />
+  <Route path="/payment-history" element={<PaymentHistory />} />
   <Route path="/admin/motors" element={<MotorList />} />
       <Route path="/admin/payments" element={<AdminPayments />} />
       <Route path="/harga" element={<Harga />} />

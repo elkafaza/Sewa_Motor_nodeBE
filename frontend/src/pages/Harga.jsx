@@ -33,15 +33,19 @@ const Harga = () => {
             <h3>{motor.brand} – {motor.model}</h3>
             <p><strong>Plat:</strong> {motor.motorId}</p>
             <p><strong>Harga per Hari:</strong> Rp {parseInt(motor.harga).toLocaleString()}</p>
-            <span className={`status-badge ${motor.status === 'Tersedia' ? 'available' : 'unavailable'}`}>
-              {motor.status}
-            </span>
+            <div className="action-buttons">
+        <span
+  className={`status-badge ${motor.tersedia ? 'available' : 'unavailable'}`}
+>
+  {motor.tersedia ? 'Tersedia' : 'Sedang disewa / dibooking'}
+</span>
 
-            {motor.status === 'Tersedia' && (
-              <button className="booking-button" onClick={() => handleBooking(motor)}>
-                Pesan Sekarang
-              </button>
-            )}
+{motor.tersedia && (
+  <button className="booking-button" onClick={() => handleBooking(motor)}>
+    Pesan Sekarang
+  </button>
+        )}
+      </div>
           </div>
         ))}
       </div>
