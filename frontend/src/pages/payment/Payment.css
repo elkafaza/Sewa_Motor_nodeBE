@@ -1,10 +1,11 @@
 .payment-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   background: linear-gradient(135deg, #ff6600, #000000);
-  padding-top: 64px; /* agar tidak ketutup navbar */
+  padding: 80px 20px 40px; /* jarak dari navbar */
+  box-sizing: border-box;
 }
 
 .payment-form {
@@ -12,7 +13,7 @@
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  max-width: 400px;
+  max-width: 600px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -22,8 +23,10 @@
 .payment-form h2 {
   text-align: center;
   color: white;
+  font-size: 28px;
 }
 
+/* === FORM FIELD === */
 .payment-form input,
 .payment-form select {
   padding: 10px;
@@ -31,34 +34,40 @@
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
+  font-size: 16px;
 }
-
-.payment-form input::placeholder,
-.payment-form select {
+.payment-form input::placeholder {
   color: #ddd;
 }
+.payment-form select {
+  color: #fff;
+}
+.payment-form select option {
+  color: #000;
+}
 
+/* === BUTTON === */
 .payment-form button {
-  padding: 10px;
+  padding: 12px;
   background-color: #ff6600;
   border: none;
   border-radius: 5px;
   color: white;
   font-weight: bold;
   cursor: pointer;
+  font-size: 16px;
   transition: background 0.3s;
 }
-
 .payment-form button:hover {
   background-color: #e65c00;
 }
 
+/* === PRICE DISPLAY === */
 .price-display {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
-
 .price-box {
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.2);
@@ -66,38 +75,8 @@
   border-radius: 5px;
   font-weight: bold;
 }
-.summary {
-  margin-top: 2rem;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.08);
-  padding: 1rem;
-  border-radius: 10px;
-}
 
-.summary h4 {
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #fff;
-}
-
-.summary p {
-  margin: 0.3rem 0;
-  color: #f1f1f1;
-  font-size: 0.95rem;
-}
-
-.motor-preview {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.motor-preview img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
+/* === RINGKASAN MOTOR === */
 .ringkasan-box {
   background-color: rgba(255, 255, 255, 0.08);
   padding: 1rem;
@@ -106,7 +85,6 @@
   color: white;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
-
 .summary-title {
   text-align: center;
   font-size: 1.2rem;
@@ -114,7 +92,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   padding-bottom: 0.25rem;
 }
-
 .motor-image {
   width: 100%;
   max-width: 300px;
@@ -124,6 +101,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* === TRANSFER INFO === */
 .transfer-info-box {
   background-color: #fff3cd;
   border: 1px solid #ffeeba;
@@ -140,4 +118,75 @@
 .transfer-info-box li {
   margin-bottom: 6px;
   list-style-type: disc;
+}
+
+/* === PREVIEW MOTOR === */
+.motor-preview {
+  margin-top: 1rem;
+  text-align: center;
+}
+.motor-preview img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* === RINGKASAN TOTAL === */
+.summary {
+  margin-top: 2rem;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  border-radius: 10px;
+}
+.summary h4 {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.summary p {
+  margin: 0.3rem 0;
+  color: #f1f1f1;
+  font-size: 0.95rem;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .payment-container {
+    padding: 100px 15px 40px;
+  }
+
+  .payment-form {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .payment-form h2 {
+    font-size: 24px;
+  }
+
+  .payment-form input,
+  .payment-form select {
+    font-size: 15px;
+    padding: 9px;
+  }
+
+  .payment-form button {
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .price-box {
+    font-size: 15px;
+  }
+
+  .motor-image {
+    max-width: 100%;
+  }
+
+  .summary p {
+    font-size: 14px;
+  }
 }

@@ -53,8 +53,9 @@ app.use(errorHandler);
 
 // MongoDB Connect & Start Server
 mongoose.connect(process.env.DATABASE_URL)
-  .then(() => {
+  .then(async() => {
     console.log('✅ MongoDB Connected');
+    await import('./utils/scheduler.js');
     app.listen(3000, () => {
       console.log('🚀 Server is running on port 3000');
     });

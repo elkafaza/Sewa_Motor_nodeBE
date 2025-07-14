@@ -1,5 +1,6 @@
+/* ==================== MINIMAL NAVBAR ==================== */
 .minimal-navbar {
- position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -7,60 +8,56 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 6px;
-  background: rgba(0, 0, 0, 0.6); /* agar tetap kontras saat scroll */
-  backdrop-filter: blur(8px);     /* efek transparan modern */
-  font-size: 16px;/* opsional, biar konsisten fix */
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  font-size: 16px;
   height: auto;
+  box-sizing: border-box;
 }
+
 .spacer {
-  height: 80px; /* Sesuaikan dengan tinggi navbar */
+  height: 64px; /* disesuaikan dengan tinggi navbar */
 }
+
 .logo-img {
-  height: 60px; /* Kecilkan logo agar tidak dorong navbar */
+  height: 60px;
   width: auto;
   object-fit: contain;
   display: block;
 }
+
+/* Kiri */
 .nav-left {
   display: flex;
   align-items: center;
-  padding-left: 20px; /* tambahkan jarak dari kiri */
+  gap: 10px;
 }
 
-.brand {
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.language-selector {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-weight: bold;
-}
+.brand,
 .brand-link {
   color: white;
-  text-decoration: none;
   font-weight: bold;
   font-size: 18px;
+  text-decoration: none;
 }
-.layout-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg, #ff6600, #000000);
-}
-.spacer {
-  height: 64px;
-}
+
+/* Kanan */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
+.nav-right span {
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Dropdown User */
 .user-button {
   background: transparent;
   border: none;
@@ -110,11 +107,68 @@
 .dropdown-menu button:hover {
   color: #ffcc99;
 }
-.nav-right span {
-  color: white;
+
+/* Language Selector */
+.language-selector {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .minimal-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 16px;
+  }
+
+  .nav-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .logo-img {
+    height: 40px;
+  }
+
+  .dropdown-menu {
+    right: 0;
+    top: 100%;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand,
+  .brand-link {
+    font-size: 16px;
+  }
+
+  .user-button {
+    font-size: 14px;
+  }
+
+  .dropdown-menu {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .dropdown-menu a,
+  .dropdown-menu button {
+    font-size: 13px;
+  }
+
+  .language-selector {
+    font-size: 12px;
+  }
+}

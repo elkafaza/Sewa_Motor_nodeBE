@@ -1,5 +1,6 @@
 import Payment from '../models/paymentModel.js';
 import asyncHandler from '../middleware/asyncHandler.js';
+import Motor from '../models/motorModel.js';
 
 // ➕ BUAT TRANSAKSI PEMBAYARAN
 export const createPayment = asyncHandler(async (req, res) => {
@@ -22,8 +23,12 @@ export const createPayment = asyncHandler(async (req, res) => {
     duration,
     total,
     method,
-    status
+    status : 'Pending'
   });
+ await Motor.findByIdAndUpdate(
+    motorId,
+    { tersedia: false, status: 'Sedang diservice / dibooking' }
+  );
 
   res.status(201).json(payment);
 });

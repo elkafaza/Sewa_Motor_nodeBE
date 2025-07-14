@@ -46,7 +46,7 @@ const Home = () => {
           <h1>{t('heroTitle')}</h1>
           <p>{t('heroDescription')}</p>
           <div className="hero-buttons">
-            <a href="https://wa.me/6281234567890" className="wa-button" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/6285934735237" className="wa-button" target="_blank" rel="noopener noreferrer">
               <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WA" />
               {t('contactButton')}
             </a>

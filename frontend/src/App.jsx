@@ -15,6 +15,7 @@ import Harga from './pages/Harga';
 import AdminPayments from './pages/admin/AdminPayments';
 import PaymentStatus from './pages/payment/PaymentStatus';
 import PaymentHistory from './pages/payment/PaymentHistory';
+import UpdateMotor from './pages/admin/UpdateMotor';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
   <Route path="/payment-status" element={<PaymentStatus />} />
   <Route path="/payment-history" element={<PaymentHistory />} />
   <Route path="/admin/motors" element={<MotorList />} />
+  <Route path="/admin/update-motor" element={<UpdateMotor />} />
       <Route path="/admin/payments" element={<AdminPayments />} />
       <Route path="/harga" element={<Harga />} />
       <Route path="/payment" element={<Payment />} />

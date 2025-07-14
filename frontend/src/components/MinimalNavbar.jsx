@@ -48,6 +48,7 @@ const MinimalNavbar = ({ changeLanguage }) => {
                             {user.role === 'admin' ? (
                               <>
                                 <Link to="/admin/motors">{t('uploadMotor')}</Link>
+                                <Link to="/admin/update-motor">Update Motor</Link>
                                 <Link to="/admin/payments">{t('verifyPayment')}</Link>
                               </>
                               ) : (

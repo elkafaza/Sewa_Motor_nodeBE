@@ -64,4 +64,30 @@ if (motor) {
   res.status(200).json({ message: 'Status pembayaran diperbarui', data: payment });
 });
 
+export const updateMotor = asyncHandler(async (req, res) => {
+  const motor = await Motor.findById(req.params.id);
+  if (!motor) return res.status(404).json({ message: 'Motor tidak ditemukan' });
+
+  const { motorId, brand, harga, status, model } = req.body;
+
+  if (motorId) motor.motorId = motorId;
+  if (brand) motor.brand = brand;
+  if (harga !== undefined) motor.harga = harga;
+  if (status) {
+    motor.status = status;
+    motor.tersedia = status === 'Tersedia';
+  }
+  if (model) motor.model = model;
+
+  // 🔁 Update gambar jika di-upload ulang
+  if (req.file) {
+    motor.gambar = `/uploads/${req.file.filename}`;
+  }
+
+  await motor.save();
+  res.status(200).json({ message: 'Data motor diperbarui', data: motor });
+});
+
+
+
 

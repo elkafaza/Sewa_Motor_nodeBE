@@ -20,19 +20,30 @@ const Payment = () => {
   });
 
   useEffect(() => {
-    const fetchUser = async () => {
+  const fetchUser = async () => {
+    try {
       const res = await axios.get('/api/auth/getUser', { withCredentials: true });
       setUser(res.data.data);
-    };
+    } catch (error) {
+      // Kalau gagal ambil user (belum login), redirect ke login
+      console.log('User belum login, redirect...');
+      navigate('/login'); // Ganti dengan path login kamu
+    }
+  };
 
-    const fetchMotors = async () => {
+  const fetchMotors = async () => {
+    try {
       const res = await axios.get('/api/admin/motor');
       setMotors(res.data);
-    };
+    } catch (error) {
+      console.error('Gagal fetch motor:', error);
+    }
+  };
 
-    fetchUser();
-    fetchMotors();
-  }, []);
+  fetchUser();
+  fetchMotors();
+}, [navigate]);
+
 
   useEffect(() => {
     const motor = motors.find((m) => m._id === form.motorId);
@@ -66,7 +77,7 @@ const Payment = () => {
         duration,
         total,
         method: form.method,
-        status: 'Berlangsung'
+       
       };
 
       const res = await axios.post('/api/payment', paymentData, { withCredentials: true });
@@ -81,10 +92,10 @@ const Payment = () => {
           withCredentials: true,
         });
 
-        alert('Pembayaran berhasil dan bukti transfer telah diunggah!');
+        alert('Pemesanan berhasil dan bukti transfer telah diunggah!');
         navigate('/payment-status', { state: { paymentId: res.data._id } });
       } else {
-        alert('Pembayaran berhasil!');
+        alert('Pemesanan berhasil!');
         navigate('/payment-status', { state: { paymentId: res.data._id } });
       }
 
@@ -108,7 +119,7 @@ const Payment = () => {
             <p><strong>Harga per Hari:</strong> Rp {selectedMotor.harga.toLocaleString('id-ID')}</p>
             <p><strong>Durasi:</strong> {duration} hari</p>
             <p><strong>Total Harga:</strong> Rp {total.toLocaleString('id-ID')}</p>
-            <p><strong>Status:</strong> {form.method === 'transfer' ? 'Berlangsung' : 'Berlangsung'}</p>
+            <p><strong>Status:</strong></p>
 
             <img
               src={`/uploads/${selectedMotor.gambar.replace(/^.*[\\/]/, '')}`}

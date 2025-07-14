@@ -1,11 +1,12 @@
 /* === CONTAINER UMUM === */
 .motor-list-container {
-  padding: 40px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   background-color: #f5f5f5;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
 }
 
 .motor-list-container h2 {
@@ -21,23 +22,26 @@
   padding: 25px 30px;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
+  margin: 0 auto 40px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .motor-form input[type="text"],
 .motor-form input[type="number"],
-.motor-form input[type="file"] {
+.motor-form input[type="file"],
+.motor-form select {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 16px;
   background-color: #fafafa;
+  color: #000;
+  box-sizing: border-box;
 }
 
 .motor-form button {
@@ -106,26 +110,55 @@
   margin-top: 8px;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .motor-list-container {
+    padding: 30px 15px;
+  }
+
   .motor-form {
     padding: 20px;
   }
 
   .motor-form input,
+  .motor-form select,
   .motor-form button {
-    font-size: 14px;
+    font-size: 15px;
+    padding: 10px;
   }
 
   .motor-card img {
-    height: 150px;
+    height: 160px;
   }
-  .motor-form select {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fafafa;
-  font-size: 16px;
+
+  .motor-card h3 {
+    font-size: 18px;
+  }
+
+  .motor-card p {
+    font-size: 14px;
+  }
 }
 
+@media (max-width: 480px) {
+  .motor-form {
+    padding: 15px;
+  }
+
+  .motor-card img {
+    height: 140px;
+  }
+
+  .motor-card h3 {
+    font-size: 16px;
+  }
+
+  .motor-card p,
+  .motor-card .harga {
+    font-size: 13px;
+  }
+
+  .motor-grid {
+    gap: 16px;
+  }
 }

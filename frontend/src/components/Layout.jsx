@@ -19,6 +19,7 @@ const Layout = () => {
     path.startsWith('/register') ||
     path.startsWith('/harga') ||
     path.startsWith('/admin/motors') || 
+    path.startsWith('/admin/update-motor') ||
     path.startsWith('/payment') || 
     path.startsWith('/admin/payments');
 

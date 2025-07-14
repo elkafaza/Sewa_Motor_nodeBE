@@ -1,25 +1,31 @@
 .payment-history-container {
   max-width: 1000px;
-  margin: 140px auto 2rem auto; /* memberi jarak di bawah navbar */
+  margin: 140px auto 2rem auto;
   background: #fff;
   padding: 2rem;
   border-radius: 8px;
   color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* penting untuk tabel di mobile */
 }
+
 .spacer {
-  height: 80px; /* Sesuaikan dengan tinggi navbar + margin */
+  height: 80px;
 }
 
 .payment-history-container h2 {
   text-align: center;
   color: #ff6600;
   margin-bottom: 1.5rem;
+  font-size: 28px;
 }
 
+/* ================== TABEL ================== */
 .payment-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  min-width: 600px; /* agar tidak terlalu kecil di mobile */
 }
 
 .payment-table th,
@@ -27,11 +33,14 @@
   padding: 12px;
   border: 1px solid #ddd;
   text-align: center;
+  font-size: 15px;
 }
 
 .payment-table th {
   background-color: #ff6600;
   color: white;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
 .clickable-row {
@@ -41,4 +50,46 @@
 
 .clickable-row:hover {
   background-color: #f0f0f0;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 768px) {
+  .payment-history-container {
+    padding: 1rem;
+    margin-top: 100px;
+  }
+
+  .payment-history-container h2 {
+    font-size: 24px;
+  }
+
+  .payment-table {
+    font-size: 14px;
+  }
+
+  .payment-table th,
+  .payment-table td {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .payment-history-container {
+    margin-top: 90px;
+    padding: 1rem;
+  }
+
+  .payment-history-container h2 {
+    font-size: 22px;
+  }
+
+  .payment-table th,
+  .payment-table td {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .spacer {
+    height: 64px;
+  }
 }

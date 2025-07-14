@@ -2,37 +2,48 @@
   padding: 40px 20px;
   background-color: #f5f5f5;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .admin-payment-page h2 {
   text-align: center;
-  color:#000000;
+  color: #000;
   margin-bottom: 30px;
+  font-size: 28px;
 }
 
+/* TABEL UTAMA */
 .payment-table {
   width: 100%;
-  color: #000000;
+  color: #000;
   border-collapse: collapse;
   background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 
 .payment-table th,
 .payment-table td {
-  padding: 12px;
+  padding: 12px 10px;
   text-align: center;
   border: 1px solid #ddd;
+  font-size: 14px;
 }
 
 .payment-table th {
   background-color: #ff6600;
   color: white;
+  font-size: 15px;
 }
 
 .payment-table select {
   padding: 5px 10px;
   border-radius: 4px;
+  font-size: 13px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
 }
 
 .payment-table button {
@@ -42,8 +53,64 @@
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .payment-table button:hover {
   background-color: #0056b3;
+}
+
+/* RESPONSIVE UNTUK LAYAR KECIL */
+@media (max-width: 768px) {
+  .payment-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admin-payment-page h2 {
+    font-size: 22px;
+  }
+
+  .payment-table th,
+  .payment-table td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .payment-table select {
+    font-size: 12px;
+  }
+
+  .payment-table button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-payment-page {
+    padding: 30px 12px;
+  }
+
+  .admin-payment-page h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .payment-table th,
+  .payment-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .payment-table button {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .payment-table select {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
 }

@@ -44,9 +44,11 @@ const MotorList = () => {
       }
 
       await axios.post('/api/admin/motor', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true
-      });
+  headers: { 'Content-Type': 'multipart/form-data' },
+  withCredentials: true
+});
+
+alert('Motor berhasil diupload');
 
       setForm({
         motorId: '',

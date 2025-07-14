@@ -3,6 +3,7 @@ import { uploadMotor, listMotor, verifyPayment, getPayments, getmotor } from '..
 import { authMiddleware, isAdmin } from '../middleware/authMiddleware.js';
 import multer from 'multer';
 import path from 'path';
+import { updateMotor } from '../controller/adminController.js';
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -32,6 +33,15 @@ router.post(
 
 router.get('/motor', listMotor);
 router.get('/motor/:id', authMiddleware, getmotor);
+router.put(
+  '/motor/:id',
+  authMiddleware,
+  isAdmin,
+  upload.single('gambar'), // ← untuk menangani gambar yang dikirim dari frontend
+  updateMotor
+);
+
+
 // Verifikasi pembayaran
 router.get('/payments', authMiddleware, isAdmin, getPayments);
 router.patch('/payments/:id', authMiddleware, isAdmin, verifyPayment);
