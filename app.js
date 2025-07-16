@@ -52,14 +52,16 @@ app.use(errorHandler);
 
 
 // MongoDB Connect & Start Server
-mongoose.connect(process.env.DATABASE_URL)
-  .then(async() => {
-    console.log('✅ MongoDB Connected');
-    await import('./utils/scheduler.js');
-    app.listen(3000, () => {
-      console.log('🚀 Server is running on port 3000');
-    });
-  })
-  .catch((err) => {
-    console.error('❌ MongoDB connection failed:', err);
-  });
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('✅ MongoDB Atlas Connected!');
+}).catch((err) => {
+  console.error('❌ MongoDB Atlas connection error:', err);
+});
+
