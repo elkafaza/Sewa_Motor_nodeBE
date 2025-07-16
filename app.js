@@ -51,10 +51,6 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-// MongoDB Connect & Start Server
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
