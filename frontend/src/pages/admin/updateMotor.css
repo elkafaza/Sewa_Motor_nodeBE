@@ -6,29 +6,59 @@
 
 .motor-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 15px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
   border-radius: 8px;
+  align-items: center;
 }
 
-.motor-item input, .motor-item select {
+.motor-item input,
+.motor-item select {
   padding: 5px;
   border-radius: 5px;
+  flex: 1 1 200px; /* Agar bisa menyusut di layar kecil */
 }
+
 .motor-item button {
   align-self: flex-start;
   padding: 5px 10px;
 }
 
-
 .motor-item img {
+  max-width: 100%;
+  height: auto;
   margin-right: 20px;
+  border-radius: 5px;
 }
 
 .motor-item select {
   margin-left: auto;
   padding: 5px;
+}
+
+/* Media Query untuk layar kecil (HP) */
+@media (max-width: 600px) {
+  .motor-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .motor-item input,
+  .motor-item select,
+  .motor-item button {
+    width: 100%;
+  }
+
+  .motor-item img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .motor-item select {
+    margin-left: 0;
+  }
 }
