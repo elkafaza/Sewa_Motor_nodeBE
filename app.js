@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import { createServer as createViteServer } from 'vite';
-import cors from cors;
+import cors from 'cors';
 // Routes & Middleware
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRouter.js';
