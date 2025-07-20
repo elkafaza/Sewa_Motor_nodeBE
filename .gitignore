@@ -1,2 +1,44 @@
+# ===== FILE RAHASIA (.env) =====
+.env
+.env.local
+.env.*.local
+
+# ===== NODE MODULES (dependency lokal) =====
 node_modules/
-package-lock.json
+
+# ===== LOG FILES =====
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ===== FOLDER HASIL BUILD =====
+dist/
+build/
+out/
+.tmp/
+temp/
+
+# ===== COVERAGE TESTING =====
+coverage/
+.nyc_output/
+
+# ===== OS / EDITOR TRASH =====
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ===== IDE CONFIG =====
+.vscode/
+.idea/
+*.iml
+
+# ===== LAINNYA OPSIONAL =====
+*.tsbuildinfo        # kalau pakai TypeScript
+uploads/             # kalau kamu punya folder upload
+public/uploads/      # jika tempat simpan gambar user
+
+# ===== PM2 PID FILE =====
+*.pid

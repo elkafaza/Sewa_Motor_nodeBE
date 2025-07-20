@@ -2,6 +2,7 @@ import Motor from '../models/motorModel.js';
 import Payment from '../models/paymentModel.js';
 import asyncHandler from '../middleware/asyncHandler.js';
 import path from 'path';
+import fs from 'fs';
 
 export const uploadMotor = asyncHandler(async (req, res) => {
   const { motorId, brand, model, tersedia, harga } = req.body;
@@ -87,7 +88,25 @@ export const updateMotor = asyncHandler(async (req, res) => {
   await motor.save();
   res.status(200).json({ message: 'Data motor diperbarui', data: motor });
 });
+export const deleteMotor = asyncHandler(async (req, res) => {
+  const motor = await Motor.findById(req.params.id);
 
+  if (!motor) {
+    return res.status(404).json({ message: 'Motor tidak ditemukan' });
+  }
+
+  // 🔥 Hapus file gambar jika ada
+  if (motor.gambar) {
+    const filePath = path.join('uploads', path.basename(motor.gambar));
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  }
+
+  await Motor.findByIdAndDelete(req.params.id);
+
+  res.status(200).json({ message: 'Motor dan gambar berhasil dihapus' });
+});
 
 
 

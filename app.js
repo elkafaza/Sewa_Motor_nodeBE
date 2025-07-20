@@ -1,64 +1,92 @@
-import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
+import { createServer as createViteServer } from 'vite';
+
+// Routes & Middleware
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRouter.js';
 import reviewRoutes from './routes/review.js';
 import adminRoutes from './routes/adminRouter.js';
 import paymentRoutes from './routes/paymentRouter.js';
-
+ // tambahkan jika belum
 
 dotenv.config();
-
-const app = express();
-
-
 
 // ES Module path fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// CORS Setup
-app.use(cors({
-  origin: 'http://localhost:5173', // ganti dengan domain React-mu
-  credentials: true,               // ⬅️ WAJIB: untuk kirim cookie JWT
-}));
+// === Express-Vite Integration ===
+const startServer = async () => {
+  const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+  // Vite middleware untuk development
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    root: path.resolve(__dirname, 'frontend/src'),
+    appType: 'custom',
+  });
 
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+  app.use(vite.middlewares);
 
-// API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/reviews', reviewRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/payment', paymentRoutes);
+  // Middleware backend
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
 
-// React frontend build
-app.use(express.static(path.join(__dirname, 'frontend/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/build/index.html'));
+  // Static file (uploads)
+  app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+  // API Routes
+  app.use('/api/auth', authRoutes);
+  app.use('/api/reviews', reviewRoutes);
+  app.use('/api/admin', adminRoutes);
+  app.use('/api/payment', paymentRoutes);
+  // Pastikan motorRouter.js ada
+
+  // Fallback route untuk frontend React
+  app.use('*', async (req, res) => {
+  try {
+    const url = req.originalUrl;
+    const html = await vite.transformIndexHtml(url, `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <title>Sewa Motor</title>
+        </head>
+        <body>
+          <div id="root"></div>
+          <script type="module" src="/index.jsx"></script>
+        </body>
+      </html>
+    `);
+    res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+  } catch (e) {
+    vite.ssrFixStacktrace(e);
+    res.status(500).end(e.stack);
+  }
 });
 
-// Error middleware
-app.use(notFound);
-app.use(errorHandler);
 
+  // Error handling middleware
+  app.use(notFound);
+  app.use(errorHandler);
 
+  // Connect to MongoDB
+  mongoose.connect('mongodb://127.0.0.1:27017/ServerMasEl')
+    .then(() => console.log('✅ Connected to local MongoDB'))
+    .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('✅ MongoDB Atlas Connected!');
-}).catch((err) => {
-  console.error('❌ MongoDB Atlas connection error:', err);
-});
+  // Start server
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Dev Server running at http://localhost:${PORT}`);
+  });
+};
 
+startServer();

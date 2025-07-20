@@ -4,6 +4,7 @@ import { authMiddleware, isAdmin } from '../middleware/authMiddleware.js';
 import multer from 'multer';
 import path from 'path';
 import { updateMotor } from '../controller/adminController.js';
+import { deleteMotor } from '../controller/adminController.js';
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -41,7 +42,7 @@ router.put(
   updateMotor
 );
 
-
+router.delete('/motor/:id', authMiddleware, isAdmin, deleteMotor);
 // Verifikasi pembayaran
 router.get('/payments', authMiddleware, isAdmin, getPayments);
 router.patch('/payments/:id', authMiddleware, isAdmin, verifyPayment);

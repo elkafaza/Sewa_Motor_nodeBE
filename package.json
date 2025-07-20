@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
     "axios": "^1.10.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
@@ -24,6 +25,7 @@
     "multer": "^2.0.1",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.3",
-    "validator": "^13.15.0"
+    "validator": "^13.15.0",
+    "vite": "^6.3.5"
   }
 }
