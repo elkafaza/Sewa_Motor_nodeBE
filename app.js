@@ -16,6 +16,13 @@ import paymentRoutes from './routes/paymentRouter.js';
 
 dotenv.config();
 
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'sewa-motor-node-fe-4zz5.vercel.app', // URL Vercel kamu
+  credentials: true
+}));
+
 // ES Module path fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
