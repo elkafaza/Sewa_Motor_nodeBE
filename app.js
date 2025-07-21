@@ -20,11 +20,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middlewares
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://sewa-motor-node-fe-w45m.vercel.app',
+  'https://sewa-motor-node-fe-w45m-git-master-elkas-projects-4bcbfa2e.vercel.app',
+  'https://sewa-motor-node-fe-w45m-qgz933ojp-elkas-projects-4bcbfa2e.vercel.app'
+];
 app.use(cors({
-  origin: ['http://localhost:5173', 'sewa-motor-node-fe-w45m.vercel.app'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
+  },
   credentials: true
 }));
-
 
 
 app.use(express.json());
