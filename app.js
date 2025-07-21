@@ -22,16 +22,19 @@ const __dirname = path.dirname(__filename);
 // Middlewares
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://sewa-motor-node-fe-w45m.vercel.app',
-  'https://sewa-motor-node-fe-w45m-git-master-elkas-projects-4bcbfa2e.vercel.app',
-  'https://sewa-motor-node-fe-w45m-qgz933ojp-elkas-projects-4bcbfa2e.vercel.app'
+  /\.vercel\.app$/, // Tambahkan regex agar subdomain Vercel tetap diizinkan
 ];
+
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.some(o => {
+      if (typeof o === 'string') return o === origin;
+      if (o instanceof RegExp) return o.test(origin);
+    })) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS: ' + origin));
+      console.log('⛔️ Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true
