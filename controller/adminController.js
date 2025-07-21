@@ -23,9 +23,10 @@
 
 
   export const listMotor = asyncHandler(async (req, res) => {
-    const data = await Motor.find();
-    res.status(200).json(data);
-  });
+  console.log('📡 [listMotor] route /api/admin/motor HIT');
+  const data = await Motor.find();
+  res.status(200).json(data);
+});
 
   export const getmotor = asyncHandler(async (req, res) => {
   const data = await Motor.findById(req.params.id); // ✅ BETUL
