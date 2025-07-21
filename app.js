@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 
 // Middlewares
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://sewa-motor-node-fe-4zz5.vercel.app'],
+  origin: ['http://localhost:5173', 'sewa-motor-node-fe-w45m.vercel.app'],
   credentials: true
 }));
 
