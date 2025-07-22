@@ -19,26 +19,11 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middlewares
-const allowedOrigins = [
-  'http://localhost:5173',
-  /\.vercel\.app$/, // Tambahkan regex agar subdomain Vercel tetap diizinkan
-];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.some(o => {
-      if (typeof o === 'string') return o === origin;
-      if (o instanceof RegExp) return o.test(origin);
-    })) {
-      callback(null, true);
-    } else {
-      console.log('⛔️ Blocked by CORS:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+  origin: 'sewa-motor-node-fe-w45m.vercel.app',
+  credentials: true,}
+));
 
 
 app.use(express.json());
