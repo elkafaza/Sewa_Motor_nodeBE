@@ -15,44 +15,53 @@ import paymentRoutes from './routes/paymentRouter.js';
 dotenv.config();
 const app = express();
 
-// ES Module fix
+// Fix untuk ES Modules (__dirname)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Allowed origins untuk CORS
 const allowedOrigins = [
   'https://sewa-motor-node-fe-w45m.vercel.app',
-  'http://localhost:3000' // saat develop
+  'http://localhost:3000', // dev local
 ];
 
+// Middleware CORS fix (untuk cookie)
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,}
-));
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('❌ Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 
-
+// Middleware parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Logging request
 app.use((req, res, next) => {
   console.log(`📥 Incoming Request: ${req.method} ${req.originalUrl}`);
   next();
 });
 
-// Static file (uploads)
+// Akses folder upload gambar/file
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-// Routes
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payment', paymentRoutes);
 
-// Error Handling
+// Error handler
 app.use(notFound);
 app.use(errorHandler);
 
-// MongoDB connection
+// Koneksi MongoDB
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));

@@ -16,11 +16,11 @@ const createSendResToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV !== 'development', // true di production (HTTPS)
-    sameSite: process.env.NODE_ENV !== 'development' ? 'None' : 'Lax',
-    expires: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000),
-  };
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production', // ✅ HTTPS only in production
+  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // ✅ Cross-site OK in production
+  expires: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000),
+};
 
   res.cookie('jwt', token, cookieOptions);
 
