@@ -19,9 +19,13 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const allowedOrigins = [
+  'https://sewa-motor-node-fe-w45m.vercel.app',
+  'http://localhost:3000' // saat develop
+];
 
 app.use(cors({
-  origin: 'sewa-motor-node-fe-w45m.vercel.app',
+  origin: allowedOrigins,
   credentials: true,}
 ));
 
