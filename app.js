@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 
 // Allowed origins untuk CORS
 const allowedOrigins = [
-  'https://sewa-motor-node-fe-w45m.vercel.app',
+  'sewamotor-malang.vercel.app',
   'http://localhost:3000', // dev local
 ];
 
